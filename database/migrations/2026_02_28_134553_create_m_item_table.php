@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('m_item', function (Blueprint $table) {
             $table->id('item_id');
             $table->unsignedBigInteger('cat_id')->index();
+            $table->unsignedBigInteger('supp_id')->index();
             $table->string('item_code', 10)->unique();
             $table->string('item_name', 100);
             $table->integer('purchase_price');
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('cat_id')->references('cat_id')->on('m_category');
+            $table->foreign('supp_id')->references('supp_id')->on('m_supplier');
         });
     }
 
