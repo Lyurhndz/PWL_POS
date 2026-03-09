@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\UserModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Testing\Fluent\Concerns\Has;
 
 class UserController extends Controller
 {
@@ -67,15 +68,57 @@ class UserController extends Controller
         //         'password' => Hash::make('12345')
         //     ],
         // );
-        $user = UserModel::firstOrNew(
-            [
-                'username' => 'manager33',
-                'name' => 'Manager Three Three',
-                'password' => hash::make('12345'),
-                'level_id' => 2
-            ],
-        );
+        // $user = UserModel::firstOrNew(
+        //     [
+        //         'username' => 'manager33',
+        //         'name' => 'Manager Three Three',
+        //         'password' => hash::make('12345'),
+        //         'level_id' => 2
+        //     ],
+        // );
+        // $user->save();
+        // return view('user', ['data' => $user]);
+
+        $user = UserModel::create([
+            'username' => 'manager55',
+            'name' => 'Manager55',
+            'password' => Hash::make('12345'),
+            'level_id' => 2,
+        ]);
+
+        $user->username = 'manager56';
+
+        // $user->isDirty();
+        // $user->isDirty('username');
+        // $user->isDirty('name');
+        // $user->isDirty(['name', 'username']);
+
+        // $user->isClean();
+        // $user->isClean('username');
+        // $user->isClean('name');
+        // $user->isClean(['name', 'username']);
+
+        // $user->save();
+        
+        // $user->isDirty();
+        // $user->isClean();
+        // dd($user->isDirty());
+
+        $user = UserModel::create([
+            'username' => 'manager11',
+            'name' => 'Manager11',
+            'password' => Hash::make('12345'),
+            'level_id' => 2,
+        ]);
+
+        $user->username = 'manager12';
+
         $user->save();
-        return view('user', ['data' => $user]);
+        $user->wasChanged();
+        $user->wasChanged('username');
+        $user->wasChanged(['username', 'level_id']);
+        $user->wasChanged('name');
+        dd($user->wasChanged(['name', 'username']));
+
     }
 }
